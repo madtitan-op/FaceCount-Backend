@@ -1,17 +1,17 @@
 package com.animesh.facecount.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue
-    private Integer userid;
+    private Integer id;
 
+    @Column(unique = true)
+    private long userid;    //ROLL NO
     @Column(length = 50)
     private String name;
     @Column(length = 80)
@@ -31,7 +31,7 @@ public class User {
     public User() {}
 
     public Integer getUserid() {
-        return userid;
+        return id;
     }
 
 /*
