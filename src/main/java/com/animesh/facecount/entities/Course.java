@@ -4,7 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
 public class Course {
 
@@ -12,11 +15,15 @@ public class Course {
     @GeneratedValue
     private Integer id;
 
-    @Column(length = 10)
+    @Setter
+    @Column(length = 10, unique = true)
     private String courseCode;
+
+    @Setter
     @Column(length = 50)
     private String courseName;
 
+    @Setter
     private Integer facultyId;
 
     public Course(String courseCode, String courseName, Integer facultyId) {
@@ -27,23 +34,24 @@ public class Course {
 
     public Course() {}
 
+    /*
     public Integer getId() {
         return id;
     }
 
-/*
+
     public void setId(Integer id) {
         this.id = id;
     }
-*/
+
 
     public String getCourseCode() {
         return courseCode;
     }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
+//    public void setCourseCode(String courseCode) {
+//        this.courseCode = courseCode;
+//    }
 
     public String getCourseName() {
         return courseName;
@@ -60,4 +68,6 @@ public class Course {
     public void setFacultyId(Integer facultyId) {
         this.facultyId = facultyId;
     }
+
+    */
 }
