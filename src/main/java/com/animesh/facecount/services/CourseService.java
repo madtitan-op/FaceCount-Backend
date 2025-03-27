@@ -63,9 +63,3 @@ public class CourseService {
         return course.getId() != null;
     }
 }
-
-/*
-//TODO
-    Check the updateCourse method for working
-
-*/
