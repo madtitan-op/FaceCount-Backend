@@ -11,7 +11,7 @@ public class User {
     private Integer id;
 
     @Column(unique = true)
-    private long userid;    //ROLL NO
+    private String userid;    //ROLL NO
     @Column(length = 50)
     private String name;
     @Column(length = 80)

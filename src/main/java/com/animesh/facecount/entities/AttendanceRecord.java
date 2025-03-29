@@ -1,8 +1,6 @@
 package com.animesh.facecount.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,13 +11,18 @@ import java.time.LocalDateTime;
 public class AttendanceRecord {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    private long userId;
-    private Integer courseId;
+    @Column(length = 20)
+    private String userId;
+//    private Integer courseId;
+
     private LocalDate date;
+
+    @Column(length = 10)
     private String status;
+
     private LocalDateTime timestamp;
 
 }
