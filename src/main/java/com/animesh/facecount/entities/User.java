@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue
     private Integer id;
 
+    @Setter
     @Column(unique = true)
     private String userid;    //ROLL NO
 
