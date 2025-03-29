@@ -1,9 +1,12 @@
 package com.animesh.facecount.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
+@Getter
 public class User {
 
     @Id
@@ -12,12 +15,20 @@ public class User {
 
     @Column(unique = true)
     private String userid;    //ROLL NO
+
+    @Setter
     @Column(length = 50)
     private String name;
+
+    @Setter
     @Column(length = 80)
     private String email;
+
+    @Setter
     @Column(length = 254)
     private String password;
+
+    @Setter
     @Column(length = 25)
     private String role;
 
@@ -29,16 +40,16 @@ public class User {
     }
 
     public User() {}
+/*
 
     public Integer getUserid() {
         return id;
     }
 
-/*
     public void setUserid(Integer userid) {
         this.userid = userid;
     }
-*/
+
 
     public String getName() {
         return name;
@@ -71,4 +82,6 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+ */
 }
