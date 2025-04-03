@@ -22,6 +22,12 @@ public class User {
     private String name;
 
     @Setter
+    private short yop;    //YEAR OF PASSING
+
+    @Setter
+    private String department;
+
+    @Setter
     @Column(length = 80)
     private String email;
 
@@ -33,8 +39,11 @@ public class User {
     @Column(length = 25)
     private String role;
 
-    public User(String name, String email, String password, String role) {
+    public User(String userid, String name, short yop, String department, String email, String password, String role) {
+        this.userid = userid;
         this.name = name;
+        this.yop = yop;
+        this.department = department;
         this.email = email;
         this.password = password;
         this.role = role;

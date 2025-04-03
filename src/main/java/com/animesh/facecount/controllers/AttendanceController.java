@@ -1,11 +1,10 @@
 package com.animesh.facecount.controllers;
 
-import com.animesh.facecount.dto.AttendanceMarkDTO;
-import com.animesh.facecount.dto.GetAttendanceRecDTO;
+import com.animesh.facecount.dto.attendance.AttendanceMarkDTO;
+import com.animesh.facecount.dto.attendance.GetAttendanceRecDTO;
 import com.animesh.facecount.services.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

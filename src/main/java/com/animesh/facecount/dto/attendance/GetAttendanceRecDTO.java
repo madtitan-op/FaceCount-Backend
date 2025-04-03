@@ -1,4 +1,4 @@
-package com.animesh.facecount.dto;
+package com.animesh.facecount.dto.attendance;
 
 import java.time.LocalDate;
 

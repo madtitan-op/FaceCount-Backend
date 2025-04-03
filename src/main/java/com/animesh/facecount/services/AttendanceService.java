@@ -1,7 +1,7 @@
 package com.animesh.facecount.services;
 
-import com.animesh.facecount.dto.AttendanceMarkDTO;
-import com.animesh.facecount.dto.GetAttendanceRecDTO;
+import com.animesh.facecount.dto.attendance.AttendanceMarkDTO;
+import com.animesh.facecount.dto.attendance.GetAttendanceRecDTO;
 import com.animesh.facecount.entities.AttendanceRecord;
 import com.animesh.facecount.repositories.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
