@@ -74,10 +74,7 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-/*
- TODO
-  - Fix the return type of updateUser() and addUser()
-* */
+
     @PostMapping("register")
     public ResponseEntity<String> addUser(@RequestBody UserRequestDTO userDTO) {
         String response = userService.addUser(userDTO);
