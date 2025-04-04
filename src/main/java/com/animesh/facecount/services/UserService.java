@@ -5,6 +5,7 @@ import com.animesh.facecount.dto.user.UserResponseDTO;
 import com.animesh.facecount.entities.User;
 import com.animesh.facecount.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public List<UserResponseDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -51,6 +53,7 @@ public class UserService {
 
     public String addUser(UserRequestDTO userDTO) {
         User user = userRequestDTOToUser(userDTO);
+        user.setPassword(encoder.encode(user.getPassword()));
         if (userRepository.findByUserid(user.getUserid()) == null){
             userRepository.save(user);
             return "Registration SUCCESSFUL";
@@ -66,7 +69,7 @@ public class UserService {
             user.setYop(userDTO.yop());
             user.setDepartment(userDTO.department());
             user.setEmail(userDTO.email());
-            user.setPassword(userDTO.password());
+            user.setPassword(encoder.encode(userDTO.password()));
             user.setRole(userDTO.role());
 
             User savedUser = userRepository.save(user);
