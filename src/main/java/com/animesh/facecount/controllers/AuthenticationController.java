@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for handling authentication requests.
+ * @author Animesh Mahata
+ * @version 1.0
+ * @since 04-04-2025
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/auth")
@@ -19,6 +25,12 @@ public class AuthenticationController {
     private final AuthenticationManager authManager;
     private final JwtService jwtService;
 
+    /**
+     * Endpoint for user login.
+     *
+     * @param authDTO the user authentication data transfer object containing userid and password
+     * @return a JWT token if authentication is successful, otherwise a failure message
+     */
     @PostMapping("login")
     public String login(@RequestBody UserAuthDTO authDTO) {
         Authentication authentication = authManager
