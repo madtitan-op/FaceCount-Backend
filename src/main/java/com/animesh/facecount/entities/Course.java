@@ -7,6 +7,12 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a course entity.
+ * 
+ * @author Animesh Mahata
+ * @version 1.0
+ */
 @Getter
 @Entity
 public class Course {
@@ -33,41 +39,4 @@ public class Course {
     }
 
     public Course() {}
-
-    /*
-    public Integer getId() {
-        return id;
-    }
-
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-//    public void setCourseCode(String courseCode) {
-//        this.courseCode = courseCode;
-//    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public Integer getFacultyId() {
-        return facultyId;
-    }
-
-    public void setFacultyId(Integer facultyId) {
-        this.facultyId = facultyId;
-    }
-
-    */
 }

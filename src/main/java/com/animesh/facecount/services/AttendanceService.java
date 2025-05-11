@@ -12,13 +12,25 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing attendance records.
+ * Provides methods to mark attendance and fetch attendance records.
+ * 
+ * @version 1.0
+ * author Animesh Mahata
+ */
 @Service
 @RequiredArgsConstructor
 public class AttendanceService {
 
     private final AttendanceRepository attendanceRepo;
 
-//    AttendanceRecord --> GetAttendanceRecDTO
+    /**
+     * Converts an AttendanceRecord entity to a GetAttendanceRecDTO.
+     * 
+     * @param record the attendance record entity
+     * @return the attendance record DTO
+     */
     public GetAttendanceRecDTO attendanceRecordToGetAttendanceDTO(AttendanceRecord record) {
         return new GetAttendanceRecDTO(
                 record.getUserId(),
@@ -28,35 +40,71 @@ public class AttendanceService {
         );
     }
 
-//    AttendanceMarkDTO --> AttendanceRecord
+    /**
+     * Converts an AttendanceMarkDTO to an AttendanceRecord entity.
+     * 
+     * @param markDTO the attendance mark DTO
+     * @return the attendance record entity
+     */
     public AttendanceRecord attendanceMarkDTOToAttendanceRecord(AttendanceMarkDTO markDTO) {
         AttendanceRecord record = new AttendanceRecord();
         record.setUserId(markDTO.userId());
-//        record.setCourseId(markDTO.courseId());
+        // record.setCourseId(markDTO.courseId());
         record.setDate(LocalDate.now());
         record.setStatus(markDTO.status());
         record.setTimestamp(LocalDateTime.now());
         return record;
     }
 
-//    Mark Attendance in Database
+    /**
+     * Marks attendance in the database.
+     * 
+     * @param markDTO the attendance mark DTO
+     * @return the attendance record DTO
+     */
     public GetAttendanceRecDTO markAttendance(AttendanceMarkDTO markDTO) {
         AttendanceRecord record = attendanceRepo.save(attendanceMarkDTOToAttendanceRecord(markDTO));
         return attendanceRecordToGetAttendanceDTO(record);
     }
 
-//Get attendance of certain student for a month
+    /**
+     * Fetches the attendance records of a certain student for a specific month.
+     * 
+     * @param month the month for which to fetch attendance
+     * @param year the year for which to fetch attendance
+     * @param userId the ID of the student
+     * @return the list of attendance record DTOs
+     */
     public List<GetAttendanceRecDTO> fetchAttendanceByMonth(int month, int year, String userId) {
-
         LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = LocalDate.of(year, month, 31);
-
-        System.out.printf("Attendance Service:  M: %d Y: %d UID: %s", month, year, userId);
-        System.out.printf("Attendance Service:  S: %tF E: %tF", start, end);
 
         List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByUserIdAndDateBetween(userId, start, end);
 
         return attendanceRecords.stream()
+                .map(record -> new GetAttendanceRecDTO(
+                        record.getUserId(),
+                        record.getDate(),
+                        record.getStatus()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Fetches the attendance records of all students present on a specific date.
+     *
+     * @param day the day for which to fetch attendance
+     * @param month the month for which to fetch attendance
+     * @param year the year for which to fetch attendance
+     * @return the list of attendance record DTOs
+     */
+    public List<GetAttendanceRecDTO> fetchAttendanceByDay(int day, int month, int year) {
+        LocalDate date = LocalDate.of(year, month, day);
+
+        List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByDate(date);
+
+        return attendanceRecords.stream()
+                .filter(record -> record.getStatus().equals("PRESENT"))
                 .map(record -> new GetAttendanceRecDTO(
                         record.getUserId(),
                         record.getDate(),

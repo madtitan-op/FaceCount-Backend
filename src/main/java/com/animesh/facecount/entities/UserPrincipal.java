@@ -7,6 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Represents a user principal for authentication.
+ * 
+ * @author Animesh Mahata
+ * @version 1.0
+ */
 public class UserPrincipal implements UserDetails {
 
     private final User user;
@@ -49,3 +55,4 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 }
+
