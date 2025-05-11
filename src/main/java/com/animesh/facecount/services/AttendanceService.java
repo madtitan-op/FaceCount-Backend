@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -77,7 +79,7 @@ public class AttendanceService {
      */
     public List<GetAttendanceRecDTO> fetchAttendanceByMonth(int month, int year, String userId) {
         LocalDate start = LocalDate.of(year, month, 1);
-        LocalDate end = LocalDate.of(year, month, 31);
+        LocalDate end = LocalDate.of(year, month, getTotalDays(month, year));
 
         List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByUserIdAndDateBetween(userId, start, end);
 
@@ -88,6 +90,34 @@ public class AttendanceService {
                         record.getStatus()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Fetches the total number of days in a month
+     *
+     * @param month the month for which to get total number of days
+     * @param year the year to which the above month belongs
+     * @return the number of days in a month
+     */
+    private int getTotalDays(int month, int year){
+        if(month < 1 || month > 12) {
+            throw new RuntimeException("INVALID MONTH: " + month);
+        }
+
+        if (month == 2) {
+            if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+                return 29;
+            }
+            return 28;
+        }
+
+        Set<Integer> months31 = new HashSet<>(List.of(1, 3, 5, 7, 8, 10, 12));
+
+        if (months31.contains(month)) {
+            return 31;
+        }
+
+        return 30;
     }
 
     /**
