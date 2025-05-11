@@ -6,6 +6,12 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Entity class representing an attendance record.
+ * 
+ * @author Animesh Mahata
+ * @version 1.0
+ */
 @Data
 @Entity
 public class AttendanceRecord {
