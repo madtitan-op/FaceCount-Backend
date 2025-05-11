@@ -44,7 +44,7 @@ public class AttendanceController {
      * @param userId the ID of the user for whom to fetch attendance records
      * @return a ResponseEntity containing a list of attendance record data transfer objects
      */
-    @GetMapping("fetch/{month}/{year}/{userId}")
+    @GetMapping("fetch/{month}/{year}/uid/{userId}")
     public ResponseEntity<List<GetAttendanceRecDTO>> fetchAttendanceByMonth(
             @PathVariable int month,
             @PathVariable int year,
@@ -54,10 +54,34 @@ public class AttendanceController {
         List<GetAttendanceRecDTO> attendanceRecord = attendanceService.fetchAttendanceByMonth(month, year, userId);
 
         if (!attendanceRecord.isEmpty()) {
-            return new ResponseEntity<>(attendanceRecord, HttpStatus.FOUND);
+            return new ResponseEntity<>(attendanceRecord, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Fetches the attendance records for a user for a specific date.
+     *
+     * @param day the day of the month for which to fetch attendance
+     * @param month the month for which to fetch attendance records
+     * @param year the year for which to fetch attendance records
+     * @return a ResponseEntity containing a list of attendance record data transfer objects
+     */
+    @GetMapping("fetch/{day}/{month}/{year}")
+    public ResponseEntity<List<GetAttendanceRecDTO>> fetchAttendanceByDay(
+            @PathVariable int day,
+            @PathVariable int month,
+            @PathVariable int year
+    ) {
+        List<GetAttendanceRecDTO> attendanceRecord = attendanceService.fetchAttendanceByDay(day, month, year);
+
+        if (!attendanceRecord.isEmpty()) {
+            return new ResponseEntity<>(attendanceRecord, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 
 }
