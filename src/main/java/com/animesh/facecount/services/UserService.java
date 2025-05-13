@@ -33,11 +33,13 @@ public class UserService {
     }
 
     public List<UserResponseDTO> getStudentsBasedOnDepartment(String dept) {
+//        List<User> users = userRepository.findAllByDepartmentContainingIgnoreCaseAndRole(dept, "ROLE_STUDENT");
         List<User> users = userRepository.findAllByDepartmentContainingIgnoreCaseAndRole(dept, "STUDENT");
         return convertUserListToUserResponseDTOList(users);
     }
 
     public List<UserResponseDTO> getStudentsBasedOnPassYearAndDepartment(short yop, String dept) {
+//        List<User> users = userRepository.findAllByDepartmentContainingIgnoreCaseAndYopAndRole(dept, yop, "ROLE_STUDENT");
         List<User> users = userRepository.findAllByDepartmentContainingIgnoreCaseAndYopAndRole(dept, yop, "STUDENT");
         return convertUserListToUserResponseDTOList(users);
     }
@@ -96,7 +98,7 @@ public class UserService {
                 dto.department(),
                 dto.email(),
                 dto.password(),
-                dto.role()
+                /*"ROLE_" +*/ dto.role()
         );
     }
 
@@ -107,20 +109,21 @@ public class UserService {
                 user.getYop(),
                 user.getDepartment(),
                 user.getEmail(),
-                user.getRole()
+                user.getRole()/*.substring(5)*/
         );
     }
 
     private List<UserResponseDTO> convertUserListToUserResponseDTOList(List<User> users) {
         return users.stream().map(
-                user -> new UserResponseDTO(
-                        user.getUserid(),
-                        user.getName(),
-                        user.getYop(),
-                        user.getDepartment(),
-                        user.getEmail(),
-                        user.getRole()
-                )
+//                user -> new UserResponseDTO(
+//                        user.getUserid(),
+//                        user.getName(),
+//                        user.getYop(),
+//                        user.getDepartment(),
+//                        user.getEmail(),
+//                        user.getRole()
+//                )
+                this::userToUserResponseDTO
         ).toList();
     }
 
