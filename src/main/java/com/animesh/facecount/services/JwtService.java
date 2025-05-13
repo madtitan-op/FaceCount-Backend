@@ -9,15 +9,41 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Service class for handling JWT operations.
+ * Generates and validates JWT tokens.
+ * Extracts user information from JWT tokens.
+ * 
+ * @author Animesh Mahata
+ * @version 1.0
+ */
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "F8gDYtHEtTFdzckHBb15/6f2ChxP30q5T/sD4Ty3BoE=";
+    private final String SECRET_KEY;
+
+    JwtService() {
+        SECRET_KEY = generateSecretKey();
+    }
+
+    public String generateSecretKey() {
+        try {
+            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+            SecretKey secretKey = keyGen.generateKey();
+            return Base64.getEncoder().encodeToString(secretKey.getEncoded());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error generating key", e);
+        }
+    }
 
     public String generateToken(String userid) {
         Map<String, Object> claims = new HashMap<>();
@@ -26,7 +52,7 @@ public class JwtService {
                 .claims(claims)
                 .subject(userid)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 5))
                 .signWith(getKey(), SignatureAlgorithm.HS256).compact();
     }
 
