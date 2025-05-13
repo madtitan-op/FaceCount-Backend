@@ -17,14 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
+ * Defines the configurations for securing the API
+ * 
  * @author Animesh Mahata
  * @version 1.0
- * @since 2025-04-04
- *
- * @Description:
- * Defines the configurations for securing the API
  */
-
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
@@ -58,7 +55,9 @@ public class SecurityConfiguration {
         return http
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/auth/login").permitAll()
+                        .requestMatchers("api/auth/login", "swagger-ui.html", "swagger-ui/**", "/v3/api-docs").permitAll()
+                        .requestMatchers("api/attendance/admin/**", "api/users/admin/**").hasRole("ADMIN")
+                        .requestMatchers("api/attendance/fetch/**", "api/users/student/**").hasAnyRole("FACULTY", "STUDENT", "ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
