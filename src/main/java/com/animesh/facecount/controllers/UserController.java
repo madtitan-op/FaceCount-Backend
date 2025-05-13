@@ -33,7 +33,7 @@ public class UserController {
      * @return ResponseEntity containing list of all users if found, empty list otherwise
      */
     @Operation(summary = "Get all users", description = "Fetches all users from the system.")
-    @GetMapping("all")
+    @GetMapping("admin/all")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         List<UserResponseDTO> allUsers = userService.getAllUsers();
         if (!allUsers.isEmpty()) {
@@ -48,7 +48,7 @@ public class UserController {
      * @return ResponseEntity containing list of users with specified role
      */
     @Operation(summary = "Get users by role", description = "Fetches users based on their role.")
-    @GetMapping("{role}")
+    @GetMapping("admin/{role}")
     public ResponseEntity<List<UserResponseDTO>> getUsersBasedOnRole(@PathVariable String role) {
         List<UserResponseDTO> users = userService.getUsersBasedOnRole(role.toUpperCase());
         if (!users.isEmpty()) {
@@ -63,7 +63,7 @@ public class UserController {
      * @return ResponseEntity containing list of students from specified year
      */
     @Operation(summary = "Get students by year of passing", description = "Fetches students who passed in a specific year.")
-    @GetMapping("student/yop/{yop}")
+    @GetMapping("admin/student/yop/{yop}")
     public ResponseEntity<List<UserResponseDTO>> getStudentsBasedOnPassYear(@PathVariable short yop) {
         List<UserResponseDTO> users = userService.getStudentsBasedOnPassYear(yop);
         if (!users.isEmpty()) {
@@ -78,7 +78,7 @@ public class UserController {
      * @return ResponseEntity containing list of students from specified department
      */
     @Operation(summary = "Get students by department", description = "Fetches students from a specific department.")
-    @GetMapping("student/dept/{dept}")
+    @GetMapping("admin/student/dept/{dept}")
     public ResponseEntity<List<UserResponseDTO>> getStudentsBasedOnDepartment(@PathVariable String dept) {
         List<UserResponseDTO> users = userService.getStudentsBasedOnDepartment(dept);
         if (!users.isEmpty()) {
@@ -94,7 +94,7 @@ public class UserController {
      * @return ResponseEntity containing list of filtered students
      */
     @Operation(summary = "Get students by year of passing and department", description = "Fetches students filtered by both year and department.")
-    @GetMapping("student/{yop}/{dept}")
+    @GetMapping("admin/student/{yop}/{dept}")
     public ResponseEntity<List<UserResponseDTO>> getStudentsBasedOnPassYearAndDepartment(
             @PathVariable short yop,
             @PathVariable String dept
@@ -127,7 +127,7 @@ public class UserController {
      * @return ResponseEntity containing response message
      */
     @Operation(summary = "Register new user", description = "Registers a new user in the system.")
-    @PostMapping("register")
+    @PostMapping("admin/register")
     public ResponseEntity<String> addUser(@RequestBody UserRequestDTO userDTO) {
         String response = userService.addUser(userDTO);
         if (!response.startsWith("User ")) {
@@ -143,7 +143,7 @@ public class UserController {
      * @return ResponseEntity containing response message
      */
     @Operation(summary = "Update user", description = "Updates details of an existing user.")
-    @PutMapping("update/{userid}")
+    @PutMapping("admin/update/{userid}")
     public ResponseEntity<String> updateUser(@RequestBody UserRequestDTO userDTO, @PathVariable String userid) {
         String response = userService.updateUser(userDTO, userid);
         if (response.startsWith("Update")) {
@@ -159,7 +159,7 @@ public class UserController {
      * @return ResponseEntity with status indicating success or failure
      */
     @Operation(summary = "Delete user", description = "Deletes a user from the system by user ID.")
-    @DeleteMapping("delete/{userid}")
+    @DeleteMapping("admin/delete/{userid}")
     public ResponseEntity<String> removeUser(@PathVariable String userid) {
         if (userService.removeUser(userid)) {
             return new ResponseEntity<>(HttpStatus.OK);
