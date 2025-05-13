@@ -4,39 +4,47 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents a user entity.
+ * 
+ * @author Animesh Mahata
+ * @version 1.0
+ */
 @Entity
 @Table(name = "users")
 @Getter
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     @Setter
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String userid;    //ROLL NO
 
     @Setter
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String name;
 
     @Setter
+    @Column(nullable = false)
     private short yop;    //YEAR OF PASSING
 
     @Setter
+    @Column(nullable = false)
     private String department;
 
     @Setter
-    @Column(length = 80)
+    @Column(length = 80, nullable = false)
     private String email;
 
     @Setter
-    @Column(length = 254)
+    @Column(length = 254, nullable = false)
     private String password;
 
     @Setter
-    @Column(length = 25)
+    @Column(length = 25, nullable = false)
     private String role;
 
     public User(String userid, String name, short yop, String department, String email, String password, String role) {
@@ -50,48 +58,5 @@ public class User {
     }
 
     public User() {}
-/*
-
-    public Integer getUserid() {
-        return id;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
- */
 }
+
