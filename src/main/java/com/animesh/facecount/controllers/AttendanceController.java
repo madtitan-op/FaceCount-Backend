@@ -31,7 +31,7 @@ public class AttendanceController {
      * @param markDTO the attendance mark data transfer object
      * @return the attendance record data transfer object
      */
-    @PostMapping("mark")
+    @PostMapping("admin/mark")
     public GetAttendanceRecDTO addPresence(@RequestBody AttendanceMarkDTO markDTO) {
         return attendanceService.markAttendance(markDTO);
     }
@@ -44,13 +44,12 @@ public class AttendanceController {
      * @param userId the ID of the user for whom to fetch attendance records
      * @return a ResponseEntity containing a list of attendance record data transfer objects
      */
-    @GetMapping("fetch/{month}/{year}/uid/{userId}")
+    @GetMapping("fetch/{month}/{year}")
     public ResponseEntity<List<GetAttendanceRecDTO>> fetchAttendanceByMonth(
             @PathVariable int month,
             @PathVariable int year,
-            @PathVariable String userId) {
+            @RequestParam String userId) {
 
-        System.out.printf("Attendance Controller:   M: %d Y: %d UID: %s", month, year, userId);
         List<GetAttendanceRecDTO> attendanceRecord = attendanceService.fetchAttendanceByMonth(month, year, userId);
 
         if (!attendanceRecord.isEmpty()) {
