@@ -62,6 +62,8 @@ e.g.- `java -jar FaceCount-1.0-SNAPSHOT.jar --DB_URL=jdbc:postgresql://localhost
 
 The application will start on the default port 8080.
 
+You will find the API endpoints at `http://localhost:8080/swagger-ui/index.html`
+
 ## Project Structure
 
 ```
