@@ -1,9 +1,10 @@
 package com.animesh.facecount.controllers;
 
-import com.animesh.facecount.dto.attendance.AttendanceMarkDTO;
-import com.animesh.facecount.dto.attendance.GetAttendanceRecDTO;
+import com.animesh.facecount.dto.attendance.AttendanceRequestDTO;
+import com.animesh.facecount.dto.attendance.AttendanceResponseDTO;
 import com.animesh.facecount.services.AttendanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,8 @@ import java.util.List;
 
 /**
  * Controller for handling attendance-related requests.
- * @author Animesh Mahata
+ *
  * @version 1.0
- * @since 17-03-2025
  */
 
 
@@ -32,8 +32,12 @@ public class AttendanceController {
      * @return the attendance record data transfer object
      */
     @PostMapping("admin/mark")
-    public GetAttendanceRecDTO addPresence(@RequestBody AttendanceMarkDTO markDTO) {
-        return attendanceService.markAttendance(markDTO);
+    public ResponseEntity<AttendanceResponseDTO> addPresence(@RequestBody AttendanceRequestDTO markDTO) {
+        try {
+            return new ResponseEntity<>(attendanceService.markAttendance(markDTO), HttpStatus.OK);
+        }catch (DataIntegrityViolationException exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**
@@ -45,12 +49,12 @@ public class AttendanceController {
      * @return a ResponseEntity containing a list of attendance record data transfer objects
      */
     @GetMapping("fetch/{month}/{year}")
-    public ResponseEntity<List<GetAttendanceRecDTO>> fetchAttendanceByMonth(
+    public ResponseEntity<List<AttendanceResponseDTO>> fetchAttendanceByMonth(
             @PathVariable int month,
             @PathVariable int year,
-            @RequestParam String userId) {
+            @RequestParam Long userId) {
 
-        List<GetAttendanceRecDTO> attendanceRecord = attendanceService.fetchAttendanceByMonth(month, year, userId);
+        List<AttendanceResponseDTO> attendanceRecord = attendanceService.fetchAttendanceByMonth(month, year, userId);
 
         if (!attendanceRecord.isEmpty()) {
             return new ResponseEntity<>(attendanceRecord, HttpStatus.OK);
@@ -68,12 +72,12 @@ public class AttendanceController {
      * @return a ResponseEntity containing a list of attendance record data transfer objects
      */
     @GetMapping("fetch/{day}/{month}/{year}")
-    public ResponseEntity<List<GetAttendanceRecDTO>> fetchAttendanceByDay(
+    public ResponseEntity<List<AttendanceResponseDTO>> fetchAttendanceByDay(
             @PathVariable int day,
             @PathVariable int month,
             @PathVariable int year
     ) {
-        List<GetAttendanceRecDTO> attendanceRecord = attendanceService.fetchAttendanceByDay(day, month, year);
+        List<AttendanceResponseDTO> attendanceRecord = attendanceService.fetchAttendanceByDay(day, month, year);
 
         if (!attendanceRecord.isEmpty()) {
             return new ResponseEntity<>(attendanceRecord, HttpStatus.OK);

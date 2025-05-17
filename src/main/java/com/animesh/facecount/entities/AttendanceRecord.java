@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Entity class representing an attendance record.
- * 
- * @author Animesh Mahata
+ *
  * @version 1.0
  */
 @Data
@@ -17,18 +16,21 @@ import java.time.LocalDateTime;
 public class AttendanceRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer attendance_id;
 
-    @Column(length = 20)
-    private String userId;
-//    private Integer courseId;
-
-    private LocalDate date;
+    @Column(length = 15)
+    private Long userid;
 
     @Column(length = 10)
     private String status;
 
-    private LocalDateTime timestamp;
+    private LocalDate date;
+    private LocalTime time;
+
+    @Column(nullable = true)
+    private Long marked_by_faculty_id;
+    @Column(nullable = true)
+    private Integer marked_by_system_id;
 
 }

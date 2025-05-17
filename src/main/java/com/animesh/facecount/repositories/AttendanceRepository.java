@@ -12,11 +12,10 @@ import java.util.List;
  * Provides methods to perform CRUD operations and custom queries.
  * 
  * @version 1.0
- * @author Animesh Mahata
  */
 @Repository
 public interface AttendanceRepository extends JpaRepository<AttendanceRecord, Integer> {
-    List<AttendanceRecord> findAttendanceRecordsByUserIdAndDateBetween(String userId, LocalDate start, LocalDate end);
+    List<AttendanceRecord> findAttendanceRecordsByUseridAndDateBetween(Long userId, LocalDate start, LocalDate end);
 
     List<AttendanceRecord> findAttendanceRecordsByDate(LocalDate date);
 }
