@@ -28,7 +28,7 @@ FaceCount-Backend is a Java-based backend built with Spring Boot 3.4.2 that prov
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/madtitan-op/FaceCount-Backend.git
 cd FaceCount-Backend
 ```
 
