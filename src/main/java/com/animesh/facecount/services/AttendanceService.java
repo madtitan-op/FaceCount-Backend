@@ -1,14 +1,15 @@
 package com.animesh.facecount.services;
 
-import com.animesh.facecount.dto.attendance.AttendanceMarkDTO;
-import com.animesh.facecount.dto.attendance.GetAttendanceRecDTO;
+import com.animesh.facecount.dto.attendance.AttendanceRequestDTO;
+import com.animesh.facecount.dto.attendance.AttendanceResponseDTO;
 import com.animesh.facecount.entities.AttendanceRecord;
 import com.animesh.facecount.repositories.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
  * Provides methods to mark attendance and fetch attendance records.
  * 
  * @version 1.0
- * author Animesh Mahata
  */
 @Service
 @RequiredArgsConstructor
@@ -33,12 +33,15 @@ public class AttendanceService {
      * @param record the attendance record entity
      * @return the attendance record DTO
      */
-    public GetAttendanceRecDTO attendanceRecordToGetAttendanceDTO(AttendanceRecord record) {
-        return new GetAttendanceRecDTO(
-                record.getUserId(),
+    public AttendanceResponseDTO attendanceRecordToGetAttendanceDTO(AttendanceRecord record) {
+        return new AttendanceResponseDTO(
+                record.getUserid(),
                 /*record.getCourseId(),*/
+                record.getStatus(),
                 record.getDate(),
-                record.getStatus()
+                record.getTime(),
+                record.getMarked_by_faculty_id(),
+                record.getMarked_by_system_id()
         );
     }
 
@@ -48,13 +51,21 @@ public class AttendanceService {
      * @param markDTO the attendance mark DTO
      * @return the attendance record entity
      */
-    public AttendanceRecord attendanceMarkDTOToAttendanceRecord(AttendanceMarkDTO markDTO) {
+    public AttendanceRecord attendanceMarkDTOToAttendanceRecord(AttendanceRequestDTO markDTO) {
         AttendanceRecord record = new AttendanceRecord();
-        record.setUserId(markDTO.userId());
+        record.setUserid(markDTO.userId());
         // record.setCourseId(markDTO.courseId());
-        record.setDate(LocalDate.now());
         record.setStatus(markDTO.status());
-        record.setTimestamp(LocalDateTime.now());
+        record.setDate(LocalDate.now());
+        record.setTime(LocalTime.now());
+        if (markDTO.role().equals("SYSTEM")) {
+            record.setMarked_by_system_id((int) markDTO.marker_id());
+            record.setMarked_by_faculty_id(null);
+        }
+        else {
+            record.setMarked_by_faculty_id(markDTO.marker_id());
+            record.setMarked_by_system_id(null);
+        }
         return record;
     }
 
@@ -64,9 +75,13 @@ public class AttendanceService {
      * @param markDTO the attendance mark DTO
      * @return the attendance record DTO
      */
-    public GetAttendanceRecDTO markAttendance(AttendanceMarkDTO markDTO) {
-        AttendanceRecord record = attendanceRepo.save(attendanceMarkDTOToAttendanceRecord(markDTO));
-        return attendanceRecordToGetAttendanceDTO(record);
+    public AttendanceResponseDTO markAttendance(AttendanceRequestDTO markDTO) {
+        try {
+            AttendanceRecord record = attendanceRepo.save(attendanceMarkDTOToAttendanceRecord(markDTO));
+            return attendanceRecordToGetAttendanceDTO(record);
+        }catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityViolationException("Either Data is duplicated OR Doesn't meet the criteria");
+        }
     }
 
     /**
@@ -77,18 +92,14 @@ public class AttendanceService {
      * @param userId the ID of the student
      * @return the list of attendance record DTOs
      */
-    public List<GetAttendanceRecDTO> fetchAttendanceByMonth(int month, int year, String userId) {
+    public List<AttendanceResponseDTO> fetchAttendanceByMonth(int month, int year, Long userId) {
         LocalDate start = LocalDate.of(year, month, 1);
         LocalDate end = LocalDate.of(year, month, getTotalDays(month, year));
 
-        List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByUserIdAndDateBetween(userId, start, end);
+        List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByUseridAndDateBetween(userId, start, end);
 
         return attendanceRecords.stream()
-                .map(record -> new GetAttendanceRecDTO(
-                        record.getUserId(),
-                        record.getDate(),
-                        record.getStatus()
-                ))
+                .map(this::attendanceRecordToGetAttendanceDTO)
                 .collect(Collectors.toList());
     }
 
@@ -128,18 +139,14 @@ public class AttendanceService {
      * @param year the year for which to fetch attendance
      * @return the list of attendance record DTOs
      */
-    public List<GetAttendanceRecDTO> fetchAttendanceByDay(int day, int month, int year) {
+    public List<AttendanceResponseDTO> fetchAttendanceByDay(int day, int month, int year) {
         LocalDate date = LocalDate.of(year, month, day);
 
         List<AttendanceRecord> attendanceRecords = attendanceRepo.findAttendanceRecordsByDate(date);
 
         return attendanceRecords.stream()
                 .filter(record -> record.getStatus().equals("PRESENT"))
-                .map(record -> new GetAttendanceRecDTO(
-                        record.getUserId(),
-                        record.getDate(),
-                        record.getStatus()
-                ))
+                .map(this::attendanceRecordToGetAttendanceDTO)
                 .collect(Collectors.toList());
     }
 }
