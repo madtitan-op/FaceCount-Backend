@@ -1,0 +1,23 @@
+${AnsiColor.BRIGHT_YELLOW}
+FFFFFFFFFFFFFFFFFFFFFF                                                               CCCCCCCCCCCCC                                                            tttt
+F::::::::::::::::::::F                                                            CCC::::::::::::C                                                         ttt:::t
+F::::::::::::::::::::F                                                          CC:::::::::::::::C                                                         t:::::t
+FF::::::FFFFFFFFF::::F                                                         C:::::CCCCCCCC::::C                                                         t:::::t
+  F:::::F       FFFFFFaaaaaaaaaaaaa      cccccccccccccccc    eeeeeeeeeeee     C:::::C       CCCCCC   ooooooooooo   uuuuuu    uuuuuunnnn  nnnnnnnn    ttttttt:::::ttttttt
+  F:::::F             a::::::::::::a   cc:::::::::::::::c  ee::::::::::::ee  C:::::C               oo:::::::::::oo u::::u    u::::un:::nn::::::::nn  t:::::::::::::::::t
+  F::::::FFFFFFFFFF   aaaaaaaaa:::::a c:::::::::::::::::c e::::::eeeee:::::eeC:::::C              o:::::::::::::::ou::::u    u::::un::::::::::::::nn t:::::::::::::::::t
+  F:::::::::::::::F            a::::ac:::::::cccccc:::::ce::::::e     e:::::eC:::::C              o:::::ooooo:::::ou::::u    u::::unn:::::::::::::::ntttttt:::::::tttttt
+  F:::::::::::::::F     aaaaaaa:::::ac::::::c     ccccccce:::::::eeeee::::::eC:::::C              o::::o     o::::ou::::u    u::::u  n:::::nnnn:::::n      t:::::t
+  F::::::FFFFFFFFFF   aa::::::::::::ac:::::c             e:::::::::::::::::e C:::::C              o::::o     o::::ou::::u    u::::u  n::::n    n::::n      t:::::t
+  F:::::F            a::::aaaa::::::ac:::::c             e::::::eeeeeeeeeee  C:::::C              o::::o     o::::ou::::u    u::::u  n::::n    n::::n      t:::::t
+  F:::::F           a::::a    a:::::ac::::::c     ccccccce:::::::e            C:::::C       CCCCCCo::::o     o::::ou:::::uuuu:::::u  n::::n    n::::n      t:::::t    tttttt
+FF:::::::FF         a::::a    a:::::ac:::::::cccccc:::::ce::::::::e            C:::::CCCCCCCC::::Co:::::ooooo:::::ou:::::::::::::::uun::::n    n::::n      t::::::tttt:::::t
+F::::::::FF         a:::::aaaa::::::a c:::::::::::::::::c e::::::::eeeeeeee     CC:::::::::::::::Co:::::::::::::::o u:::::::::::::::un::::n    n::::n      tt::::::::::::::t
+F::::::::FF          a::::::::::aa:::a cc:::::::::::::::c  ee:::::::::::::e       CCC::::::::::::C oo:::::::::::oo   uu::::::::uu:::un::::n    n::::n        tt:::::::::::tt
+FFFFFFFFFFF           aaaaaaaaaa  aaaa   cccccccccccccccc    eeeeeeeeeeeeee          CCCCCCCCCCCCC   ooooooooooo       uuuuuuuu  uuuunnnnnn    nnnnnn          ttttttttttt
+
+${AnsiColor.DEFAULT}---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------${AnsiColor.DEFAULT}
+${AnsiColor.DEFAULT} Version: ${AnsiColor.BRIGHT_MAGENTA}${application.version}
+${AnsiColor.DEFAULT} Developed by: ${AnsiColor.BRIGHT_GREEN}Animesh Mahata
+${AnsiColor.DEFAULT} Powered by: ${AnsiColor.BRIGHT_CYAN}Spring Boot ${spring-boot.version}
+${AnsiColor.DEFAULT}

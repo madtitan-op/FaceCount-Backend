@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.animesh</groupId>
     <artifactId>FaceCount</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>FaceCount-Backend</name>
     <description>FaceCount-Backend</description>
     <url/>
