@@ -33,10 +33,9 @@ public class AttendanceService {
      * @param record the attendance record entity
      * @return the attendance record DTO
      */
-    public AttendanceResponseDTO attendanceRecordToGetAttendanceDTO(AttendanceRecord record) {
+    private AttendanceResponseDTO attendanceRecordToGetAttendanceDTO(AttendanceRecord record) {
         return new AttendanceResponseDTO(
                 record.getUserid(),
-                /*record.getCourseId(),*/
                 record.getStatus(),
                 record.getDate(),
                 record.getTime(),
@@ -51,10 +50,9 @@ public class AttendanceService {
      * @param markDTO the attendance mark DTO
      * @return the attendance record entity
      */
-    public AttendanceRecord attendanceMarkDTOToAttendanceRecord(AttendanceRequestDTO markDTO) {
+    private AttendanceRecord attendanceMarkDTOToAttendanceRecord(AttendanceRequestDTO markDTO) {
         AttendanceRecord record = new AttendanceRecord();
         record.setUserid(markDTO.userId());
-        // record.setCourseId(markDTO.courseId());
         record.setStatus(markDTO.status());
         record.setDate(LocalDate.now());
         record.setTime(LocalTime.now());
