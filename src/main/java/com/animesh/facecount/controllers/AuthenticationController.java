@@ -1,6 +1,6 @@
 package com.animesh.facecount.controllers;
 
-import com.animesh.facecount.dto.user.UserAuthDTO;
+import com.animesh.facecount.dto.UserAuthDTO;
 import com.animesh.facecount.services.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller for handling authentication requests.
- * @author Animesh Mahata
+ *
  * @version 1.0
- * @since 04-04-2025
+ *
  */
 @RestController
 @RequiredArgsConstructor
