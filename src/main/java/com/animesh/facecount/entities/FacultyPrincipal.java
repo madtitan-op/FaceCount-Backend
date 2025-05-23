@@ -28,4 +28,8 @@ public class FacultyPrincipal implements UserDetails {
     public String getUsername() {
         return String.valueOf(faculty.getFaculty_id());
     }
+
+    public String getRole() {
+        return faculty.getRole();
+    }
 }

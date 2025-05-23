@@ -28,4 +28,8 @@ public class StudentPrincipal implements UserDetails {
     public String getUsername() {
         return String.valueOf(student.getStudent_id());
     }
+
+    public String getRole() {
+        return student.getRole();
+    }
 }

@@ -28,4 +28,8 @@ public class FaceCountSystemPrincipal implements UserDetails {
     public String getUsername() {
         return String.valueOf(fcs.getSystem_id());
     }
+
+    public String getRole() {
+        return fcs.getRole();
+    }
 }
