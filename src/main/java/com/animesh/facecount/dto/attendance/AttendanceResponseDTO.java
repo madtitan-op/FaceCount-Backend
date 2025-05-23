@@ -9,6 +9,7 @@ import java.time.LocalTime;
  * @version 1.0
  */
 public record AttendanceResponseDTO(
+        String name,
         Long userId,
         String status,
         LocalDate date,
