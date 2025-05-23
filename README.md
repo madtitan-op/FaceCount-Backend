@@ -33,7 +33,7 @@ cd FaceCount-Backend
 ```
 
 2. Configure your PostgreSQL database:
-   - Create a new database
+   - Create a new database (I've named it `facecount`)
    - Update the application.properties file with your database credentials (optional)
    - Run the `schema.sql` script in your database
    - Run the `data.sql` script to insert dummy data _(OR You can insert your own data)_
@@ -58,7 +58,7 @@ OR
 cd target
 java -jar <filename> --DB_URL=<database_URL> --DB_USERNAME=<username> --DB_PASSWORD=<password>
 ```
-e.g.- `java -jar FaceCount-1.0-SNAPSHOT.jar --DB_URL=jdbc:postgresql://localhost:5432/facecount --DB_USERNAME=postgres --DB_PASSWORD=secret`
+e.g.- `java -jar FaceCount-1.0.jar --DB_URL=jdbc:postgresql://localhost:5432/facecount --DB_USERNAME=postgres --DB_PASSWORD=secret`
 
 The application will start on the default port 8080.
 
