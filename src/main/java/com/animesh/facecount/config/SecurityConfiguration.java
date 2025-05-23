@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
@@ -59,8 +61,9 @@ public class SecurityConfiguration {
                         //system
                         .requestMatchers("api/system/**").hasAnyRole("SYSTEM", "ADMIN")
                         //attendance
-                        .requestMatchers(HttpMethod.GET, "api/attendance/**").hasAnyRole("ADMIN", "FACULTY", "MODERATOR", "SYSTEM")
+                        /*.requestMatchers(HttpMethod.GET, "api/attendance/**").hasAnyRole("ADMIN", "FACULTY", "MODERATOR", "SYSTEM")
                         .requestMatchers(HttpMethod.POST, "api/attendance/**").hasAnyRole("ADMIN", "MODERATOR", "SYSTEM")
+                        .requestMatchers("api/attendance/fetch/")*/
                         //faculty
                         .requestMatchers("/api/faculty/me").hasAnyRole("FACULTY", "MODERATOR", "ADMIN")
                         .requestMatchers("/api/faculty/admin/details/{facultyId}").hasAnyRole("MODERATOR", "ADMIN")
