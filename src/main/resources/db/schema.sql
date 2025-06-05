@@ -31,12 +31,10 @@ CREATE TABLE IF NOT EXISTS facecount_systems(
     PRIMARY KEY (system_id)
 );
 
-CREATE TYPE STATUS AS ENUM('PRESENT', 'ABSENT');
-
 CREATE TABLE IF NOT EXISTS attendance_record(
     attendance_id SERIAL,
     userid BIGINT NOT NULL REFERENCES students(student_id),
-    status STATUS NOT NULL DEFAULT 'ABSENT',
+    status VARCHAR(10) NOT NULL DEFAULT 'ABSENT',
     date DATE DEFAULT CURRENT_DATE,
     time TIME(0) DEFAULT CURRENT_TIME::TIME(0),
     marked_by_faculty_id BIGINT REFERENCES faculty(faculty_id),
