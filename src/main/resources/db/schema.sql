@@ -9,14 +9,14 @@ CREATE TABLE IF NOT EXISTS students (
     PRIMARY KEY (student_id)
 );
 
-CREATE TYPE ROLE AS ENUM('ADMIN', 'MODERATOR', 'FACULTY', 'SYSTEM');
+-- CREATE TYPE ROLE AS ENUM('ADMIN', 'MODERATOR', 'FACULTY', 'SYSTEM');
 
 CREATE TABLE IF NOT EXISTS faculty(
     faculty_id BIGINT,
     email VARCHAR(80) NOT NULL,
     name VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ROLE NOT NULL,
+    role VARCHAR(10) NOT NULL,
     department VARCHAR(50) NOT NULL,
     PRIMARY KEY (faculty_id)
 );
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS facecount_systems(
     system_id INTEGER DEFAULT nextval('system_id_seq'),
     department VARCHAR(50),
     password VARCHAR(255),
-    role ROLE NOT NULL DEFAULT 'SYSTEM',
+    role VARCHAR(10) NOT NULL DEFAULT 'SYSTEM',
     PRIMARY KEY (system_id)
 );
 
