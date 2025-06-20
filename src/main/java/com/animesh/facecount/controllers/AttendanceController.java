@@ -35,7 +35,7 @@ public class AttendanceController {
      * @param markDTO the attendance mark data transfer object
      * @return the attendance record data transfer object
      */
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR', 'SYSTEM')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'FACULTY', 'SYSTEM')")
     @PostMapping("admin/mark")
     public ResponseEntity<AttendanceResponseDTO> addPresence(@RequestBody AttendanceRequestDTO markDTO) {
         try {
