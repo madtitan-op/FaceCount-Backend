@@ -1,6 +1,7 @@
 # FaceCount-Backend
 
-A Spring Boot backend service for storing attendance and user data.
+A Spring Boot backend service for storing attendance and user data. \
+Full project: [FaceCount](https://github.com/madtitan-op/FaceCount)
 
 ## Project Overview
 
@@ -104,5 +105,5 @@ The project uses Maven as the build tool. Common Maven commands:
 ## Contact
 
 Animesh Mahata \
-Mail- imanimesh1210@gmail.com \
+Mail- manimesh12.10@gmail.com \
 LinkedIn- [linkedin.com/in/animesh-mahata](https://www.linkedin.com/in/animesh-mahata/)
